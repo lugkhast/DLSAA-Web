@@ -1,0 +1,20 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore Vim files
+*.swp
+*.swo
+
+# Ignore dependencies
+static/lib
+
+# Ignore bower things that need to be ignored
+bower_components
+
+# Ignore JavaScript files sitting alongside CoffeeScript files
+# (assume they're compiled versions of the CoffeeScript)
+static/scripts/*.js
+
+# and ignore source maps as well
+*.map
+

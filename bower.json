@@ -1,0 +1,22 @@
+{
+  "name": "DLSAA Back End Web Service",
+  "version": "0.1.0",
+  "authors": [
+    "Lawrence Patrick Calulo <lawrence_calulo@dlsu.ph>"
+  ],
+  "license": "Proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "ember": "1.0.0",
+    "bootstrap": "*",
+    "ember-data-shim": "~1.0.0"
+  }
+}
