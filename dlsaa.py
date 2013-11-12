@@ -4,6 +4,9 @@ import os
 import jinja2
 import webapp2
 
+import api
+from models import *
+
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
 class MainPage(webapp2.RequestHandler):
@@ -16,4 +19,7 @@ class MainPage(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+
+    # API stuff
+    ('/api/business', api.PartnerBusinessApi),
 ], debug=True)

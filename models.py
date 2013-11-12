@@ -7,6 +7,13 @@ class PartnerBusiness(ndb.Model):
     name = ndb.StringProperty()
     discount_description = ndb.StringProperty()
 
+    def to_dict(self):
+        business_dict = {}
+        business_dict['name'] = self.name
+        business_dict['discount_description'] = self.discount_description
+
+        return business_dict
+
 
 class PartnerBranch(ndb.Model):
     location = ndb.GeoPtProperty()
@@ -25,8 +32,8 @@ class Chapter(ndb.Model):
 class Officer(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
-    email = ndb.EmailProperty()
-    mobile_number = ndb.PhoneNumberProperty()
+    email = ndb.StringProperty()
+    mobile_number = ndb.StringProperty()
 
 
 # News and events
