@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/lib/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body>
+
+    <!-- INDEX TEMPLATE -->
+    <script type="text/x-handlebars">
+      <nav class="navbar navbar-default" role="navigation">
+        <div id="dlsaa-navbar-container" class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+              DLSAA App Control Panel
+            </a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+
+            <!-- NAV BAR ITEMS, LEFT SIDE -->
+            <ul class="nav navbar-nav">
+              {{#linkTo 'index' tagName='li'}}
+                <a {{bindAttr href='view.href'}}>Home</a>
+              {{/linkTo}}
+            </ul>
+
+            <!-- NAV BAR ITEMS, RIGHT SIDE -->
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+          </div> <!-- end navbar-collapse -->
+
+        </div> <!-- end dlsaa-navbar-container -->
+      </nav>
+    </script>
+
+    <script src="/static/lib/jquery/jquery.min.js"></script>
+    <script src="/static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="/static/lib/ember/ember.js"></script>
+
+    <script type="text/javascript" src="/static/scripts/app.js"></script>
+  </body>
+</html>
