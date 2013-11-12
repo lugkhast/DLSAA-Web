@@ -28,6 +28,9 @@
               {{#linkTo 'index' tagName='li'}}
                 <a {{bindAttr href='view.href'}}>Home</a>
               {{/linkTo}}
+              {{#linkTo 'businesses' tagName='li'}}
+                <a {{bindAttr href='view.href'}}>Partnered Businesses</a>
+              {{/linkTo}}
             </ul>
 
             <!-- NAV BAR ITEMS, RIGHT SIDE -->
@@ -37,6 +40,58 @@
 
         </div> <!-- end dlsaa-navbar-container -->
       </nav>
+
+      {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" id="businesses">
+      <div class="container">
+
+        <!-- left-side panel -->
+        <div class="col-md-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Businesses
+            </div>
+
+            <ul class="list-group">
+              {{#each businesses}}
+                {{#linkTo 'business' this classNames='list-group-item'}}
+                  {{name}}
+                {{/linkTo}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          {{outlet}}
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="business">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          {{name}}
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputBusinessName" class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-10">
+                {{input type='text' value=name classNames='form-control'}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputDiscountInfo" class="col-sm-2 control-label">Discount Info</label>
+              <div class="col-sm-10">
+                {{input type='text' value=discount_description classNames='form-control'}}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </script>
 
     <script src="/static/lib/jquery/jquery.min.js"></script>
