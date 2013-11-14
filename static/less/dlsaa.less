@@ -8,6 +8,11 @@
     src: url(/static/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff);
 }
 
+// Compensave for navbar-fixed-top
+body > .ember-view {
+    padding-top: 60px;
+}
+
 th {
     font-weight: bold;
 }
