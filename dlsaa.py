@@ -15,6 +15,8 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         home_template = file(os.path.join(TEMPLATE_DIR, 'home.hbs'))
         self.response.write(home_template.read())
+        
+        home_template.close()
 
 
 application = webapp2.WSGIApplication([

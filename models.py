@@ -3,6 +3,8 @@ from google.appengine.ext import ndb
 
 # DLSAA Card partner locator stuff
 # ---------------------------------------------------------
+
+
 class PartnerBusiness(ndb.Model):
     name = ndb.StringProperty()
     discount_description = ndb.StringProperty()
@@ -16,6 +18,7 @@ class PartnerBusiness(ndb.Model):
 
 
 class PartnerBranch(ndb.Model):
+    address = ndb.StringProperty()
     location = ndb.GeoPtProperty()
 
 

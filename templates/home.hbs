@@ -110,6 +110,14 @@
               <th>Latitude</th>
               <th>Longitude</th>
             </tr>
+
+            {{#each branches}}
+              <tr>
+                <td>{{address}}</td>
+                <td>{{latitude}}</td>
+                <td>{{longitude}}</td>
+              </tr>
+            {{/each}}
           </table>
         </div>
 
