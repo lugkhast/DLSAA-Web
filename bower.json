@@ -17,6 +17,11 @@
     "jquery": "~2.0.3",
     "ember": "~1.1.0",
     "bootstrap": "~3.0.0",
-    "less.js": "~1.5.0"
+    "less.js": "~1.5.0",
+    "toastr": "~2.0.1",
+    "ember-model": "*"
+  },
+  "resolutions": {
+    "ember": "~1.1.0"
   }
 }
