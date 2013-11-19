@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# NOTE!
+# Compiling everything into one file (with --join) makes Chrome and Firefox
+# not use the source maps.
+coffee --map --watch --output static/scripts/ --compile static/scripts/
+

@@ -13,6 +13,7 @@ class PartnerBusiness(ndb.Model):
         business_dict = {}
         business_dict['name'] = self.name
         business_dict['discount_description'] = self.discount_description
+        business_dict['id'] = self.key.urlsafe()
 
         return business_dict
 
