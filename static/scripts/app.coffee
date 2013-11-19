@@ -38,27 +38,17 @@ window.dummy_businesses =
    ]
 
 
-# Declare models
-App.Business = Ember.Object.extend
-    address: null
-    latitude: null
-    longitude: null
-    branches: []
-
-    id: null
-
-
 App.Router.map ->
     this.resource 'businesses', ->
             this.resource 'business', { path: '/:business_id' }
 
 App.BusinessesRoute = Ember.Route.extend
     model: ->
-        return dummy_businesses
+        return App.Business.findAll()
 
 App.BusinessRoute = Ember.Route.extend
     model: (params) ->
-        return dummy_businesses.businesses.findBy 'id', params.business_id
+        return App.Business.findById(params.business_id)
 
 App.BusinessController = Ember.ObjectController.extend
     actions:
