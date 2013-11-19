@@ -40,7 +40,8 @@ window.dummy_businesses =
 
 App.Router.map ->
     this.resource 'businesses', ->
-            this.resource 'business', { path: '/:business_id' }
+        this.resource 'business', { path: '/:business_id' }
+        this.route 'new'
 
 App.BusinessesRoute = Ember.Route.extend
     model: ->
@@ -56,5 +57,5 @@ App.BusinessController = Ember.ObjectController.extend
             toastr.info 'Saving...'
 
             model = this.get 'model'
-            $.post '/api/business', JSON.stringify(model).then (blah) ->
+            $.post('/api/business', JSON.stringify(model)).then (blah) ->
                 console.log 'Posted!', blah
