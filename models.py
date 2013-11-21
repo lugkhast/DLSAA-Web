@@ -15,12 +15,27 @@ class PartnerBusiness(ndb.Model):
         business_dict['discount_description'] = self.discount_description
         business_dict['id'] = self.key.urlsafe()
 
+        branches = PartnerBranch.query(PartnerBranch.business_key == self.key)
+        branch_dicts = [b.to_dict() for d in branches]
+        business_dict['branches'] = branch_dicts
+
         return business_dict
 
 
 class PartnerBranch(ndb.Model):
     address = ndb.StringProperty()
     location = ndb.GeoPtProperty()
+    business_key = ndb.KeyProperty(kind='PartnerBusiness')
+
+    def to_dict(self):
+        branch_dict = {}
+        branch_dict['address'] = self.address
+        branch_dict['latitude'] = self.location.lat
+        branch_dict['longitude'] = self.location.long
+
+        branch_dict['business_key'] = self.business_key.urlsafe()
+
+        return branch_dict
 
 
 # Chapter locator

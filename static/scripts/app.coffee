@@ -22,3 +22,12 @@ App.BusinessController = Ember.ObjectController.extend
             model = this.get 'model'
             $.post('/api/business', JSON.stringify(model)).then (blah) ->
                 console.log 'Posted!', blah
+
+App.BusinessesNewController = Ember.Controller.extend
+    actions:
+        save: ->
+            toastr.info 'Saving...'
+
+            business = App.Business.create()
+            business.name = this.get 'businessName'
+            business.address = this.get 'businessAddress'

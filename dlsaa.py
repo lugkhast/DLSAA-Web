@@ -25,4 +25,7 @@ application = webapp2.WSGIApplication([
     # API stuff
     (r'/api/business/([a-zA-Z0-9-_]+)?', api.PartnerBusinessApi),
     (r'/api/business/?$', api.PartnerBusinessApi),
+
+    (r'/api/branch/([a-zA-Z0-9-_]+)?', api.PartnerBranchApi),
+    (r'/api/branch/?$', api.PartnerBranchApi),
 ], debug=True)

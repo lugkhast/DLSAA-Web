@@ -22,7 +22,20 @@ class PartnerBusinessApi(webapp2.RequestHandler):
             data = {'businesses': businesses}
         
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(json.dumps(data))
+        self.response.write(json.dumps(data, indent=2))
 
     def post(self):
         self.response.write(self.request.body)
+
+
+class PartnerBranchApi(webapp2.RequestHandler):
+
+    def post(self):
+        branch_dict = json.loads(self.request.body)
+
+        branch = Branch()
+        branch.business_key = ndb.Key(urlsafe=branch_dict['business_key'])
+        branch.address = branch_dict['address']
+        branch.location = ndb.GeoPt(lat=branch_dict['latitude'],
+                                    lon=branch_dict['longitude'])
+        branch.put()
