@@ -65,6 +65,10 @@
                 {{#linkTo 'business' this classNames='list-group-item'}}
                   {{name}}
                 {{/linkTo}}
+              {{else}}
+                <div class="list-group-item">
+                  No businesses found
+                </div>
               {{/each}}
             </ul>
           </div>
@@ -118,6 +122,10 @@
                 <td>{{address}}</td>
                 <td>{{latitude}}</td>
                 <td>{{longitude}}</td>
+              </tr>
+            {{else}}
+              <tr>
+                <td><em>This business has no known branches.</em></td>
               </tr>
             {{/each}}
           </table>
