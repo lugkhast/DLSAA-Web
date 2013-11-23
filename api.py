@@ -52,6 +52,27 @@ class PartnerBusinessApi(webapp2.RequestHandler):
             # TODO: Log this?
             self.response.set_status(404)
 
+    def put(self, string=None):
+        key_string = string
+        if not key_string:
+            self.response.set_status(400)
+            return
+
+        try:
+            key = ndb.Key(urlsafe=key_string)
+            business = key.get()
+        except Exception:
+            # Assume that it went nuts because the key's invalid
+            # TODO: Log this?
+            self.response.set_status(404)
+
+        data = json.loads(self.request.body)
+        business.name = data['name']
+        business.discount_description = data['discount_description']
+        business.put()
+
+        return_data = business.to_dict()
+        self.response.write(json.dumps(return_data))
 
 
 class PartnerBranchApi(webapp2.RequestHandler):

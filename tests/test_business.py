@@ -91,7 +91,7 @@ class BusinessApiTestCase(unittest.TestCase):
 
         business.name = 'New Business Name'
         bdict = business.to_dict()
-        bjson = json.dumps(bdict)
+        bus_json = json.dumps(bdict)
 
-        response = self.testapp.put('/api/business/' + bdict['id'], bjson)
+        response = self.testapp.put('/api/business/' + bdict['id'], bus_json)
 

@@ -75,8 +75,12 @@ App.Model.reopenClass({
 
         console.debug 'NOT CACHED - retrieving data from server'
         collectionKey = this.collectionKey
+        modelClass = this
         return $.getJSON(this.url).then (data) ->
-            imap.setModels data[collectionKey]
+            # Instantiate instances of the appropriate class, so we can use its
+            # methods later
+            models = (modelClass.create(obj) for obj in data[collectionKey])
+            imap.setModels models
 
             # We need to return the identity map's copy, so deletions/other
             # modifications to the backing array result in events that everyone
@@ -125,7 +129,25 @@ App.Model.reopenClass({
 
 
 App.Model.reopen
+    update: ->
+        if not this.id
+            throw Error('Need an id to call update!')
+
+        model = this
+        modelClass = this.constructor
+        return $.ajax(
+            type: 'PUT'
+            url: "#{modelClass.url}/#{this.id}"
+            data: JSON.stringify(model)
+            contentType: 'application/json'
+        ).success (data) ->
+            console.log 'PUT successful', data
+
     save: ->
+        if this.id
+            this.update()
+            return
+
         model = this
         modelClass = this.constructor
         return $.ajax(
@@ -134,7 +156,7 @@ App.Model.reopen
             data: JSON.stringify(model)
             contentType: 'application/json'
         ).success (data) ->
-            console.log 'Success!', JSON.data
+            console.log 'Success!', data
             data = JSON.parse(data)
             model.id = data.key
 

@@ -16,12 +16,11 @@ App.BusinessRoute = Ember.Route.extend
 
 App.BusinessController = Ember.ObjectController.extend
     actions:
-        save: ->
+        updateBusiness: ->
             toastr.info 'Saving...'
 
             model = this.get 'model'
-            $.post('/api/business', JSON.stringify(model)).then (blah) ->
-                console.log 'Posted!', blah
+            model.save()
 
         showDeleteBusinessDialog: ->
             $('#deleteBusinessModal').modal('show')
@@ -30,6 +29,9 @@ App.BusinessController = Ember.ObjectController.extend
             model = this.get 'model'
             App.Business.deleteInstance model
             this.transitionToRoute 'businesses'
+
+        addBranch: ->
+            return
 
 App.BusinessesNewController = Ember.Controller.extend
     clearFields: ->
