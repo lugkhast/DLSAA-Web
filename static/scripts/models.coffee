@@ -18,7 +18,7 @@ App.IdentityMap = Ember.Object.extend
     hasData: false
 
     setModels: (newModels) ->
-        console.log 'Setting models to', newModels, this.get('loadedModels')
+        console.log 'Setting models to', newModels
         models = this.get 'loadedModels'
         models.set 'content', newModels
         this.set 'hasData', true
@@ -74,6 +74,7 @@ App.Model.reopenClass({
 
         collectionKey = this.collectionKey
         return $.getJSON(this.url).then (data) ->
+            console.log 'Retrieved updated data from server'
             imap.setModels data[collectionKey]
 
             # We need to return the identity map's copy, so deletions/other
@@ -117,13 +118,24 @@ App.Model.reopenClass({
         this.findAll()
 })
 
+
 App.Business = App.Model.extend
-    address: null
-    latitude: null
-    longitude: null
+    name: null
+    discount_description: null
     branches: []
 
     id: null
+
+    save: ->
+        business = this
+        $.ajax(
+            type: 'POST'
+            url: App.Business.url
+            data: JSON.stringify(business)
+            contentType: 'application/json'
+        ).success (data) ->
+            console.log 'Success!', data
+            App.Business.reload()
 
 App.Business.url = '/api/business'
 App.Business.rootKey = 'business'

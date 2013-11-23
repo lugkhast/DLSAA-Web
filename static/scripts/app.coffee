@@ -25,9 +25,10 @@ App.BusinessController = Ember.ObjectController.extend
 
 App.BusinessesNewController = Ember.Controller.extend
     actions:
-        save: ->
+        addBusiness: ->
             toastr.info 'Saving...'
 
             business = App.Business.create()
-            business.name = this.get 'businessName'
-            business.address = this.get 'businessAddress'
+            business.name = this.get 'name'
+            business.discount_description = this.get 'discount_description'
+            business.save()

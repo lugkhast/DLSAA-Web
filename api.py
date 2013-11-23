@@ -25,6 +25,13 @@ class PartnerBusinessApi(webapp2.RequestHandler):
         self.response.write(json.dumps(data, indent=2))
 
     def post(self):
+        business_data = json.loads(self.request.body)
+
+        business = PartnerBusiness()
+        business.name = business_data['name']
+        business.discount_description = business_data['discount_description']
+        business.put()
+
         self.response.write(self.request.body)
 
 
