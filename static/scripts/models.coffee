@@ -120,23 +120,26 @@ App.Model.reopenClass({
 })
 
 
+App.Model.reopen
+    save: ->
+        model = this
+        modelClass = this.constructor
+        $.ajax(
+            type: 'POST'
+            url: modelClass.url
+            data: JSON.stringify(model)
+            contentType: 'application/json'
+        ).success (data) ->
+            console.log 'Success!', data
+            modelClass.reload()
+
+
 App.Business = App.Model.extend
     name: null
     discount_description: null
     branches: []
 
     id: null
-
-    save: ->
-        business = this
-        $.ajax(
-            type: 'POST'
-            url: App.Business.url
-            data: JSON.stringify(business)
-            contentType: 'application/json'
-        ).success (data) ->
-            console.log 'Success!', data
-            App.Business.reload()
 
 App.Business.url = '/api/business'
 App.Business.rootKey = 'business'
