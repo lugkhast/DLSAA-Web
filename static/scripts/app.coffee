@@ -32,6 +32,10 @@ App.BusinessController = Ember.ObjectController.extend
             this.transitionToRoute 'businesses'
 
 App.BusinessesNewController = Ember.Controller.extend
+    clearFields: ->
+        this.set 'name', ''
+        this.set 'discount_description', ''
+
     actions:
         addBusiness: ->
             toastr.info 'Saving...'
@@ -42,5 +46,6 @@ App.BusinessesNewController = Ember.Controller.extend
 
             controller = this
             business.save().success ->
+                controller.clearFields()
                 console.log 'AAAAAAAAAAAAAAAAAAAAA', business
                 controller.transitionToRoute 'business', business
