@@ -14,6 +14,14 @@ from models import *
 
 class BusinessApiTestCase(unittest.TestCase):
 
+    def create_business(self):
+        business = PartnerBusiness()
+        business.name = 'Hello World'
+        business.discount_description = 'insert discount here'
+        business.put()
+
+        return business
+
     def do_stub_setup(self):
         # from http://einaregilsson.com/unit-testing-model-classes-in-google-app-engine/
         app_id = 'dlsaa-web'
@@ -77,3 +85,13 @@ class BusinessApiTestCase(unittest.TestCase):
     def test_delete_nonexistent(self):
         response = self.testapp.delete('/api/business/ag1kZXZ-ZGxzYWEtd2VichwLEg9QYXJ0bmVyQnVzaW5lc3MYgICAgICAoAgM',
                                        status=404)
+
+    def test_put(self):
+        business = self.create_business()
+
+        business.name = 'New Business Name'
+        bdict = business.to_dict()
+        bjson = json.dumps(bdict)
+
+        response = self.testapp.put('/api/business/' + bdict['id'], bjson)
+
