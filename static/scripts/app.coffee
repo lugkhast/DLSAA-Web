@@ -23,6 +23,14 @@ App.BusinessController = Ember.ObjectController.extend
             $.post('/api/business', JSON.stringify(model)).then (blah) ->
                 console.log 'Posted!', blah
 
+        showDeleteBusinessDialog: ->
+            $('#deleteBusinessModal').modal('show')
+
+        deleteBusiness: ->
+            model = this.get 'model'
+            App.Business.deleteInstance model
+            this.transitionToRoute 'businesses'
+
 App.BusinessesNewController = Ember.Controller.extend
     actions:
         addBusiness: ->

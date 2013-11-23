@@ -34,6 +34,21 @@ class PartnerBusinessApi(webapp2.RequestHandler):
 
         self.response.write(self.request.body)
 
+    def delete(self, string=None):
+        key_string = string
+        if not key_string:
+            self.response.set_status(400)
+            return
+
+        try:
+            key = ndb.Key(urlsafe=key_string)
+            key.delete()
+        except Exception:
+            # Assume that it went nuts because the key's invalid
+            # TODO: Log this?
+            self.response.set_status(404)
+
+
 
 class PartnerBranchApi(webapp2.RequestHandler):
 

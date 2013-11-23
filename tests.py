@@ -36,7 +36,7 @@ class BusinessApiTestCase(unittest.TestCase):
     def tearDown(self):
         self.testbed.deactivate()
 
-    def test_business_api_get(self):
+    def test_get(self):
         response = self.testapp.get('/api/business')
 
         # Call must succeed
@@ -45,7 +45,7 @@ class BusinessApiTestCase(unittest.TestCase):
         data = json.loads(response.normal_body)
         self.assertTrue(data.has_key('businesses'))
 
-    def test_business_api_post(self):
+    def test_post(self):
         business = PartnerBusiness()
         business.name = 'Hello World'
         business.discount_description = 'insert discount here'
@@ -64,3 +64,16 @@ class BusinessApiTestCase(unittest.TestCase):
 
         self.assertTrue(returned_json.has_key('business'))
         self.assertTrue(returned_json['business']['id'], business.key.urlsafe())
+
+    def test_delete(self):
+        business = PartnerBusiness()
+        business.name = 'Hello World'
+        business.discount_description = 'insert discount here'
+        business.put()
+
+        response = self.testapp.delete('/api/business/' + business.key.urlsafe())
+        self.assertEqual(response.status_int, 200)
+
+    def test_delete_nonexistent(self):
+        response = self.testapp.delete('/api/business/ag1kZXZ-ZGxzYWEtd2VichwLEg9QYXJ0bmVyQnVzaW5lc3MYgICAgICAoAgM',
+                                       status=404)

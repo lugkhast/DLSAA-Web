@@ -105,7 +105,7 @@ App.Model.reopenClass({
 
         return $.ajax(
             type: 'DELETE'
-            url: this.url + model.id
+            url: "#{this.url}/#{model.id}"
             contentType: 'application/json'
         ).success(
             # Only remove the model if the deletion was successful
