@@ -30,9 +30,13 @@ class PartnerBusinessApi(webapp2.RequestHandler):
         business = PartnerBusiness()
         business.name = business_data['name']
         business.discount_description = business_data['discount_description']
-        business.put()
+        key = business.put()
 
-        self.response.write(self.request.body)
+        # Return the key, so the client identifies the new object correctly
+        return_data = {
+            'key': key.urlsafe()
+        }
+        self.response.write(json.dumps(return_data))
 
     def delete(self, string=None):
         key_string = string

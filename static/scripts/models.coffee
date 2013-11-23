@@ -113,10 +113,14 @@ App.Model.reopenClass({
             imap.deleteModel model
         )
 
-    reload: ->
-        # Ask for all models again
-        this.identityMap.set('hasData', false)
-        this.findAll()
+    reload: (newData) ->
+        if newData
+            # If we're given data, just pass that to the identity map
+            this.identityMap.setModels newData
+        else
+            # Ask for all models again
+            this.identityMap.set('hasData', false)
+            this.findAll()
 })
 
 
@@ -124,14 +128,19 @@ App.Model.reopen
     save: ->
         model = this
         modelClass = this.constructor
-        $.ajax(
+        return $.ajax(
             type: 'POST'
             url: modelClass.url
             data: JSON.stringify(model)
             contentType: 'application/json'
         ).success (data) ->
-            console.log 'Success!', data
-            modelClass.reload()
+            console.log 'Success!', JSON.data
+            data = JSON.parse(data)
+            model.id = data.key
+
+            # Add the model to the identity map
+            imap = modelClass.identityMap
+            imap.putModel model
 
 
 App.Business = App.Model.extend

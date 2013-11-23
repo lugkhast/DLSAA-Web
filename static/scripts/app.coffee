@@ -39,4 +39,8 @@ App.BusinessesNewController = Ember.Controller.extend
             business = App.Business.create()
             business.name = this.get 'name'
             business.discount_description = this.get 'discount_description'
-            business.save()
+
+            controller = this
+            business.save().success ->
+                console.log 'AAAAAAAAAAAAAAAAAAAAA', business
+                controller.transitionToRoute 'business', business
