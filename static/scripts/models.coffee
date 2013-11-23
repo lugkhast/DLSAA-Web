@@ -66,15 +66,16 @@ App.Model.reopenClass({
         if imap.get 'hasData'
             # Models retrieved from the identity map must be wrapped within a
             # Promise.
+            console.debug 'CACHED - retrieving data from identity map'
             return new Ember.RSVP.Promise (resolve, reject) ->
                 resolve imap.findAll()
 
         if not this.url
             throw new Error("App.Model subclasses need a url property")
 
+        console.debug 'NOT CACHED - retrieving data from server'
         collectionKey = this.collectionKey
         return $.getJSON(this.url).then (data) ->
-            console.log 'Retrieved updated data from server'
             imap.setModels data[collectionKey]
 
             # We need to return the identity map's copy, so deletions/other
