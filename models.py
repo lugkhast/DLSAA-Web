@@ -16,7 +16,7 @@ class PartnerBusiness(ndb.Model):
         business_dict['id'] = self.key.urlsafe()
 
         branches = PartnerBranch.query(PartnerBranch.business_key == self.key)
-        branch_dicts = [b.to_dict() for d in branches]
+        branch_dicts = [b.to_dict() for b in branches]
         business_dict['branches'] = branch_dicts
 
         return business_dict
@@ -31,7 +31,7 @@ class PartnerBranch(ndb.Model):
         branch_dict = {}
         branch_dict['address'] = self.address
         branch_dict['latitude'] = self.location.lat
-        branch_dict['longitude'] = self.location.long
+        branch_dict['longitude'] = self.location.lon
 
         branch_dict['business_key'] = self.business_key.urlsafe()
 

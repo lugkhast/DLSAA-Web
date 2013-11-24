@@ -57,12 +57,15 @@ App.Model.reopenClass({
         if not (this.url and this.collectionKey and this.rootKey)
             throw new Error('Model subclasses require url, collectionKey and rootKey properties')
 
+    getIdentityMap: ->
+        this.identityMap = this.identityMap or App.IdentityMap.create()
+        return this.getIdentityMap()
+
     findAll: ->
         this.checkRequiredProperties()
 
         # Grab data from the identity map if it's there
-        this.identityMap = this.identityMap or App.IdentityMap.create()
-        imap = this.identityMap
+        imap = this.getIdentityMap()
         if imap.get 'hasData'
             # Models retrieved from the identity map must be wrapped within a
             # Promise.
@@ -105,7 +108,7 @@ App.Model.reopenClass({
             return model
 
     deleteInstance: (model) ->
-        imap = (this.identityMap or App.IdentityMap.create())
+        imap = this.getIdentityMap()
 
         return $.ajax(
             type: 'DELETE'
@@ -161,7 +164,7 @@ App.Model.reopen
             model.id = data.key
 
             # Add the model to the identity map
-            imap = modelClass.identityMap
+            imap = modelClass.getIdentityMap()
             imap.putModel model
 
 
@@ -175,3 +178,14 @@ App.Business = App.Model.extend
 App.Business.url = '/api/business'
 App.Business.rootKey = 'business'
 App.Business.collectionKey = 'businesses'
+
+
+App.Branch = App.Model.extend
+    address: null
+    latitude: null
+    longitude: null
+    business_key: null
+
+App.Branch.url = '/api/branch'
+App.Branch.rootKey = 'branch'
+App.Branch.collectionKey = 'branches'

@@ -78,11 +78,19 @@ class PartnerBusinessApi(webapp2.RequestHandler):
 class PartnerBranchApi(webapp2.RequestHandler):
 
     def post(self):
-        branch_dict = json.loads(self.request.body)
+        try:
+            branch_dict = json.loads(self.request.body)
+        except ValueError:
+            self.response.set_status(400)
+            return
 
-        branch = Branch()
+        branch = PartnerBranch()
         branch.business_key = ndb.Key(urlsafe=branch_dict['business_key'])
         branch.address = branch_dict['address']
         branch.location = ndb.GeoPt(lat=branch_dict['latitude'],
                                     lon=branch_dict['longitude'])
         branch.put()
+
+        data = {'key': branch.key.urlsafe()}
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.write(json.dumps(data))
