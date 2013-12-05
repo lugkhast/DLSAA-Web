@@ -59,7 +59,7 @@ App.Model.reopenClass({
 
     getIdentityMap: ->
         this.identityMap = this.identityMap or App.IdentityMap.create()
-        return this.getIdentityMap()
+        return this.identityMap
 
     findAll: ->
         this.checkRequiredProperties()
